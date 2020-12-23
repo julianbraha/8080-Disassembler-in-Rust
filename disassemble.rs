@@ -51,7 +51,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&"DCR    B\n");
                 buffer = buffer[2..6].to_owned();
             },            "06" => {
-                asm.push_str(&format!("MVI    B,#0x{}\n", &buffer[2..4]));
+                asm.push_str(&format!("MVI    B,#$0x{}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
             },            "07" => {
                 asm.push_str(&"RCL    B\n");
@@ -74,7 +74,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&"DCR    C\n");
                 buffer = buffer[2..6].to_owned();
             },            "0e" => {
-                asm.push_str(&format!("MVI    C,#0x{}\n", &buffer[2..4]));
+                asm.push_str(&format!("MVI    C,#$0x{}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
             },            "0f" => {
                 asm.push_str(&"RRC\n");
@@ -97,7 +97,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&"DCR    D\n");
                 buffer = buffer[2..6].to_owned();
             },            "16" => {
-                asm.push_str(&format!("CPI    D,#0x{}\n", &buffer[2..4]));
+                asm.push_str(&format!("CPI    D,#$0x{}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
             },            "17" => {
                 asm.push_str(&"RAL\n");
@@ -120,7 +120,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&"DCR    E\n");
                 buffer = buffer[2..6].to_owned();
             },            "1e" => {
-                asm.push_str(&format!("MVI    E,#0x{}\n", &buffer[2..4]));
+                asm.push_str(&format!("MVI    E,#$0x{}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
             },            "1f" => {
                 asm.push_str(&"RAR\n");
@@ -143,7 +143,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&"DCR    H\n");
                 buffer = buffer[2..6].to_owned();
             },            "26" => {
-                asm.push_str(&format!("MVI    H,#0x{}\n", &buffer[2..4]));
+                asm.push_str(&format!("MVI    H,#$0x{}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
             },            "27" => {
                 asm.push_str(&"DAA\n");
@@ -166,7 +166,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&"DCR    L\n");
                 buffer = buffer[2..6].to_owned();
             },            "2e" => {
-                asm.push_str(&format!("MVI    L,#0x{}\n", &buffer[2..4]));
+                asm.push_str(&format!("MVI    L,#$0x{}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
             },            "2f" => {
                 asm.push_str(&"CMA\n");
@@ -189,7 +189,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&"DCR    M\n");
                 buffer = buffer[2..6].to_owned();
             },            "36" => {
-                asm.push_str(&format!("MVI    M,#0x{}\n", &buffer[2..4]));
+                asm.push_str(&format!("MVI    M,#$0x{}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
             },            "37" => {
                 asm.push_str(&"STC\n");
@@ -212,7 +212,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&"DCR    A\n");
                 buffer = buffer[2..6].to_owned();
             },            "3e" => {
-                asm.push_str(&format!("MVI    A,#0x{}\n", &buffer[2..4]));
+                asm.push_str(&format!("MVI    A,#$0x{}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
             },            "3f" => {
                 asm.push_str(&"CMC\n");
@@ -620,7 +620,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&"PUSH   B\n");
                 buffer = buffer[2..6].to_owned();
             },            "c6" => {
-                asm.push_str(&format!("ADI    #0x{}\n", &buffer[2..4]));
+                asm.push_str(&format!("ADI    #$0x{}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
             },            "c7" => {
                 asm.push_str(&"RST    0\n");
@@ -643,7 +643,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&format!("CALL   ${}{}\n", &buffer[2..4], &buffer[4..6]));
                 buffer = "".to_owned();
             },            "ce" => {
-                asm.push_str(&format!("ACI    #0x{}\n", &buffer[2..4]));
+                asm.push_str(&format!("ACI    #$0x{}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
             },            "cf" => {
                 asm.push_str(&"RST    1\n");
@@ -658,7 +658,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&format!("JNC    ${}{}\n", &buffer[2..4], &buffer[4..6]));
                 buffer = "".to_owned();
             },            "d3" => {
-                asm.push_str(&format!("OUT    #0x{}\n", &buffer[2..4]));
+                asm.push_str(&format!("OUT    #$0x{}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
             },            "d4" => {
                 asm.push_str(&format!("CNC    ${}{}\n", &buffer[2..4], &buffer[4..6]));
@@ -667,7 +667,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&"PUSH   D\n");
                 buffer = buffer[2..6].to_owned();
             },            "d6" => {
-                asm.push_str(&format!("SUI    #0x{}\n", &buffer[2..4]));
+                asm.push_str(&format!("SUI    #$0x{}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
             },            "d7" => {
                 asm.push_str(&"RST    2\n");
@@ -681,7 +681,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&format!("JC     ${}{}\n", &buffer[2..4], &buffer[4..6]));
                 buffer = "".to_owned();
             },            "db" => {
-                asm.push_str(&format!("IN     #0x{}\n", &buffer[2..4]));
+                asm.push_str(&format!("IN     #$0x{}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
             },            "dc" => {
                 asm.push_str(&format!("CC     ${}{}\n", &buffer[2..4], &buffer[4..6]));
@@ -689,7 +689,7 @@ fn disassemble(hex: &[u8]) -> String {
             },            "dd" => {
                 buffer = buffer[2..6].to_owned();
             },            "de" => {
-                asm.push_str(&format!("SBI    #0x{}\n", &buffer[2..4]));
+                asm.push_str(&format!("SBI    #$0x{}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
             },            "df" => {
                 asm.push_str(&"RST    3\n");
@@ -713,7 +713,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&"PUSH   H\n");
                 buffer = buffer[2..6].to_owned();
             },            "e6" => {
-                asm.push_str(&format!("ANI    #0x{}\n", &buffer[2..4]));
+                asm.push_str(&format!("ANI    #$0x{}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
             },            "e7" => {
                 asm.push_str(&"RST    4\n");
@@ -736,7 +736,7 @@ fn disassemble(hex: &[u8]) -> String {
             },            "ed" => {
                 buffer = buffer[2..6].to_owned();
             },            "ee" => {
-                asm.push_str(&format!("XRI    #0x{}\n", &buffer[2..4]));
+                asm.push_str(&format!("XRI    #$0x{}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
             },            "ef" => {
                 asm.push_str(&"RST    5\n");
@@ -760,7 +760,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&"PUSH   PSW\n");
                 buffer = buffer[2..6].to_owned();
             },            "f6" => {
-                asm.push_str(&format!("ORI    #0x{}\n", &buffer[2..4]));
+                asm.push_str(&format!("ORI    #$0x{}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
             },            "f7" => {
                 asm.push_str(&"RST    6\n");
@@ -783,7 +783,7 @@ fn disassemble(hex: &[u8]) -> String {
             },            "fd" => {
                 buffer = buffer[2..6].to_owned();
             },            "fe" => {
-                asm.push_str(&format!("CPI    #0x{}\n", &buffer[2..4]));
+                asm.push_str(&format!("CPI    #$0x{}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
             },            "ff" => {
                 asm.push_str(&"RST    7\n");
