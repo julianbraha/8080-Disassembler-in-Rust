@@ -5,4 +5,4 @@ How to compile:
 'rustc disassemble.rs'
 
 How to run:
-'disassemble <filename>', where <filename> is the output of 'hexdump <binary>'
+'disassemble `<filename>`', where `<filename>` is the output of 'hexdump `<binary>`'
