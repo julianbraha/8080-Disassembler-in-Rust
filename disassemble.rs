@@ -14,7 +14,7 @@ fn disassemble(hex: &[u8]) -> String {
         }
         else {
             // First 7 characters of each line (of 48 characters) is just the line number
-            if i % 48 < 7 {
+            if i % 56 < 7 {
                 continue;
             } else {
                 buffer.push_str(&(hex[i] as char).to_string());
@@ -41,9 +41,9 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "01" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("LXI    B,#${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("LXI    B,#${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "02" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -73,7 +73,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&format!("{:04x} ", line_number));
                 asm.push_str(&format!("MVI    B,#${}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
-				line_number += 1;
+				line_number += 2;
             },
             "07" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -83,6 +83,7 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "08" => {
                 buffer = buffer[2..6].to_owned();
+                line_number += 1;
             },
             "09" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -118,7 +119,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&format!("{:04x} ", line_number));
                 asm.push_str(&format!("MVI    C,#${}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
-				line_number += 1;
+				line_number += 2;
             },
             "0f" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -128,12 +129,13 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "10" => {
                 buffer = buffer[2..6].to_owned();
+                line_number += 1;
             },
             "11" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("LXI    D,#${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("LXI    D,#${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "12" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -163,7 +165,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&format!("{:04x} ", line_number));
                 asm.push_str(&format!("CPI    D,#${}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
-				line_number += 1;
+				line_number += 2;
             },
             "17" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -173,6 +175,7 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "18" => {
                 buffer = buffer[2..6].to_owned();
+                line_number += 1;
             },
             "19" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -208,7 +211,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&format!("{:04x} ", line_number));
                 asm.push_str(&format!("MVI    E,#${}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
-				line_number += 1;
+				line_number += 2;
             },
             "1f" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -218,18 +221,19 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "20" => {
                 buffer = buffer[2..6].to_owned();
+                line_number += 1;
             },
             "21" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("LXI    H,#${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("LXI    H,#${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "22" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("SHLD   ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("SHLD   ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "23" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -253,7 +257,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&format!("{:04x} ", line_number));
                 asm.push_str(&format!("MVI    H,#${}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
-				line_number += 1;
+				line_number += 2;
             },
             "27" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -263,6 +267,7 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "28" => {
                 buffer = buffer[2..6].to_owned();
+                line_number += 1;
             },
             "29" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -272,9 +277,9 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "2a" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("LHLD   ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("LHLD   ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "2b" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -298,7 +303,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&format!("{:04x} ", line_number));
                 asm.push_str(&format!("MVI    L,#${}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
-				line_number += 1;
+				line_number += 2;
             },
             "2f" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -308,18 +313,19 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "30" => {
                 buffer = buffer[2..6].to_owned();
+                line_number += 1;
             },
             "31" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("LXI    SP,#${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("LXI    SP,#${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "32" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("STA    ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("STA    ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "33" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -343,7 +349,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&format!("{:04x} ", line_number));
                 asm.push_str(&format!("MVI    M,#${}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
-				line_number += 1;
+				line_number += 2;
             },
             "37" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -353,6 +359,7 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "38" => {
                 buffer = buffer[2..6].to_owned();
+                line_number += 1;
             },
             "39" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -362,9 +369,9 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "3a" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("LDA    ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("LDA    ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "3b" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -388,7 +395,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&format!("{:04x} ", line_number));
                 asm.push_str(&format!("MVI    A,#${}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
-				line_number += 1;
+				line_number += 2;
             },
             "3f" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -1178,21 +1185,22 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "c2" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("JNZ    ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("JNZ    ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "c3" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("JMP    ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("JMP    ${}{}\n", &buffer[4..6], &buffer[2..4]));
+                println!("in c3 (jmp). buffer is: {}", &buffer);
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "c4" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("CNZ    ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("CNZ    ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "c5" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -1204,7 +1212,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&format!("{:04x} ", line_number));
                 asm.push_str(&format!("ADI    #${}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
-				line_number += 1;
+				line_number += 2;
             },
             "c7" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -1226,30 +1234,31 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "ca" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("JZ     ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("JZ     ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "cb" => {
                 buffer = buffer[2..6].to_owned();
+                line_number += 1;
             },
             "cc" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("CZ     ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("CZ     ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "cd" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("CALL   ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("CALL   ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "ce" => {
                 asm.push_str(&format!("{:04x} ", line_number));
                 asm.push_str(&format!("ACI    #${}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
-				line_number += 1;
+				line_number += 2;
             },
             "cf" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -1271,21 +1280,21 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "d2" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("JNC    ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("JNC    ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "d3" => {
                 asm.push_str(&format!("{:04x} ", line_number));
                 asm.push_str(&format!("OUT    #${}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
-				line_number += 1;
+				line_number += 2;
             },
             "d4" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("CNC    ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("CNC    ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "d5" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -1297,7 +1306,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&format!("{:04x} ", line_number));
                 asm.push_str(&format!("SUI    #${}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
-				line_number += 1;
+				line_number += 2;
             },
             "d7" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -1313,33 +1322,35 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "d9" => {
                 buffer = buffer[2..6].to_owned();
+                line_number += 1;
             },
             "da" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("JC     ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("JC     ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "db" => {
                 asm.push_str(&format!("{:04x} ", line_number));
                 asm.push_str(&format!("IN     #${}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
-				line_number += 1;
+				line_number += 2;
             },
             "dc" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("CC     ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("CC     ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "dd" => {
                 buffer = buffer[2..6].to_owned();
+                line_number += 1;
             },
             "de" => {
                 asm.push_str(&format!("{:04x} ", line_number));
                 asm.push_str(&format!("SBI    #${}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
-				line_number += 1;
+				line_number += 2;
             },
             "df" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -1361,9 +1372,9 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "e2" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("JPO    ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("JPO    ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "e3" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -1373,9 +1384,9 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "e4" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("CPO    ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("CPO    ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "e5" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -1387,7 +1398,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&format!("{:04x} ", line_number));
                 asm.push_str(&format!("ANI    #${}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
-				line_number += 1;
+				line_number += 2;
             },
             "e7" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -1409,9 +1420,9 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "ea" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("JPE    ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("JPE    ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "eb" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -1421,18 +1432,19 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "ec" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("CPE   ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("CPE   ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "ed" => {
                 buffer = buffer[2..6].to_owned();
+                line_number += 1;
             },
             "ee" => {
                 asm.push_str(&format!("{:04x} ", line_number));
                 asm.push_str(&format!("XRI    #${}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
-				line_number += 1;
+				line_number += 2;
             },
             "ef" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -1454,9 +1466,9 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "f2" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("JP     ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("JP     ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "f3" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -1466,9 +1478,9 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "f4" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("CP   ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("CP   ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "f5" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -1480,7 +1492,7 @@ fn disassemble(hex: &[u8]) -> String {
                 asm.push_str(&format!("{:04x} ", line_number));
                 asm.push_str(&format!("ORI    #${}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
-				line_number += 1;
+				line_number += 2;
             },
             "f7" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -1502,9 +1514,9 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "fa" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("JM     ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("JM     ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "fb" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -1514,18 +1526,19 @@ fn disassemble(hex: &[u8]) -> String {
             },
             "fc" => {
                 asm.push_str(&format!("{:04x} ", line_number));
-                asm.push_str(&format!("CM     ${}{}\n", &buffer[2..4], &buffer[4..6]));
+                asm.push_str(&format!("CM     ${}{}\n", &buffer[4..6], &buffer[2..4]));
                 buffer = "".to_owned();
-				line_number += 1;
+				line_number += 3;
             },
             "fd" => {
                 buffer = buffer[2..6].to_owned();
+                line_number += 1;
             },
             "fe" => {
                 asm.push_str(&format!("{:04x} ", line_number));
                 asm.push_str(&format!("CPI    #${}\n", &buffer[2..4]));
                 buffer = buffer[4..6].to_owned();
-				line_number += 1;
+				line_number += 2;
             },
             "ff" => {
                 asm.push_str(&format!("{:04x} ", line_number));
@@ -1534,7 +1547,7 @@ fn disassemble(hex: &[u8]) -> String {
 				line_number += 1;
             },
             _ => {
-                println!("FATAL ERROR: unexpected byte: {}", &buffer[0..2]);
+                println!("FATAL ERROR: unexpected byte {}", &buffer[0..2]);
                 return "".to_owned();
             },
         }
