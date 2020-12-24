@@ -1536,7 +1536,6 @@ fn disassemble(hex: &[u8]) -> String {
             _ => {
                 println!("FATAL ERROR: unexpected byte: {}", &buffer[0..2]);
                 return "".to_owned();
-				line_number += 1;
             },
         }
     }
