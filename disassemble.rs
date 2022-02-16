@@ -1561,7 +1561,7 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     if args.len() != 2 {
-        println!("Improper usage. Please pass the name of the file to disassemble as an argument.");
+        println!("Improper usage. Please pass the name of the hexdump file to disassemble as an argument.");
         return;
     }
 
