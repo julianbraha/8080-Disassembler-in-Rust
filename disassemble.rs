@@ -1192,7 +1192,6 @@ fn disassemble(hex: &[u8]) -> String {
             "c3" => {
                 asm.push_str(&format!("{:04x} ", line_number));
                 asm.push_str(&format!("JMP    ${}{}\n", &buffer[4..6], &buffer[2..4]));
-                println!("in c3 (jmp). buffer is: {}", &buffer);
                 buffer = "".to_owned();
 				line_number += 3;
             },
