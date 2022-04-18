@@ -10,5 +10,5 @@ out_file=./intermediates/${filename}.x
 if test -f "$out_file"; then
   echo "FATAL: file $out_file already exists. Not overwriting."
 else
-  od -x --endian big ${bin} > ${out_file}
+  od -x -v --endian big ${bin} > ${out_file}
 fi
